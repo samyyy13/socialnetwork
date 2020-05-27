@@ -27,19 +27,20 @@ switch ($action) {
   case 'display':
   default:
     include "../models/PostManager.php";
-    $posts = GetAllPosts();
+    if (isset($_GET['search'])) {
+      $posts = SearchInPosts($_GET['search']);
+    } else {
+      $posts = GetAllPosts();
+    }
 
     include "../models/CommentManager.php";
-    $comments = array();
 
-    // ===================HARDCODED PART===========================
-    // format idPost => array of comments
-    foreach($posts as $onePost){
-      $idPost = $onePost['id'];
-      $commentsForThisPost = GetAllCommentsFromPostId;
-      $comments[$idPost] = $commentForThisPost;
-  };
-    // =============================================================
+    foreach ($posts as $key => $post) {
+      # code...
+      $idPost = $post['id'];
+      $commentsForOnePost = GetAllCommentsFromPostId($idPost);
+      $comments[$idPost] = $commentsForOnePost;
+    }
 
     include "../views/DisplayPosts.php";
     break;
