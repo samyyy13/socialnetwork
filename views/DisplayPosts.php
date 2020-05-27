@@ -26,30 +26,20 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+      </ul>
       <ul class="navbar-nav">
         <li class="nav-item">
           <form class="nav-link" method="get">
             <input name="search" type="text"></input>
           </form>
         </li>
-    <?php
-      if (isset($_SESSION['userId'])) {
-    ?>
-        <li class="nav-item">
-          <a class="nav-link" href="?action=logout" role="button">Logout</a>
-        </li>
-    <?php
-      } else {
-    ?>
         <li class="nav-item">
           <a class="nav-link" href="?action=login" role="button">Login</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="?action=register" role="button">Sign Up</a>
         </li>
-    <?php
-      }
-    ?>
       </ul>
     </div>
   </header>
@@ -68,9 +58,24 @@
     <div class="row">
       <div class="col">
         <?php
+if (isset($_SESSION['userId'])) {
+?>
+  <div class="row newMsg">
+    <div class="col">
+      <form class="input-group" method="POST" action="?action=newMsg">
+        <input name="msg" class="form-control" placeholder="Add a message" type="text">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+<?php
+}
+?>
+        <?php
         if (isset($posts)) {
           foreach ($posts as $onePost) {
         ?>
+
             <div class="panel panel-white post panel-shadow">
               <div class="post-heading">
                 <div class="pull-left image">
